@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe/core/shared/app_strings.dart';
 import 'package:recipe/presentation/bloc/recipe_bloc.dart';
 import 'package:recipe/presentation/screens/home_screen.dart';
 import 'package:recipe/presentation/screens/splash_screen.dart';
@@ -24,18 +25,18 @@ class MyApp extends StatelessWidget {
               bloc.add(FetchRecipes());
               return bloc;
             } catch (e) {
-              print('Error creating RecipeBloc: $e');
+              print('${AppStrings.recipeBlocError} $e');
               throw e; // Rethrow after logging for debugging
             }
           },
         ),
       ],
       child: MaterialApp(
-        title: 'Food Recipe App',
-        initialRoute: '/',
+        title: AppStrings.appTitle,
+        initialRoute: AppStrings.screenPathSplash,
         routes: {
-          '/': (context) => SplashScreen(),
-          '/home': (context) => HomeScreen(),
+          AppStrings.screenPathSplash: (context) => SplashScreen(),
+          AppStrings.screenPathHome: (context) => HomeScreen(),
           // Add routes for other screens here
         },
       ),

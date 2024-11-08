@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe/core/shared/app_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,20 +16,20 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _checkFirstTimeUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+    bool isFirstTime = prefs.getBool(AppStrings.preKeyIsFirstTime) ?? true;
 
     if (isFirstTime) {
-      await prefs.setBool('isFirstTime', false);
-      Navigator.pushReplacementNamed(context, '/intro');
+      await prefs.setBool(AppStrings.preKeyIsFirstTime, false);
+      Navigator.pushReplacementNamed(context, AppStrings.screenPathIntro);
     } else {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, AppStrings.screenPathHome);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: CircularProgressIndicator()),
+    return const Scaffold(
+      body: Center(child: Text(AppStrings.loading)),
     );
   }
 }

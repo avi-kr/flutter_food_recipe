@@ -1,3 +1,4 @@
+import 'package:recipe/core/shared/app_strings.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -14,29 +15,22 @@ class RecipeLocalDataSource {
 
   Future<Database> _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, 'recipes.db');
+    String path = join(documentsDirectory.path, AppStrings.dbName);
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE recipes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT,
-        imageUrl TEXT,
-        instructions TEXT
-      )
-    ''');
+    await db.execute(AppStrings.createRecipeTable);
   }
 
   Future<void> addRecipe(Map<String, dynamic> recipe) async {
     final db = await database;
-    await db.insert('recipes', recipe,
+    await db.insert(AppStrings.dbTableNameRecipe, recipe,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<List<Map<String, dynamic>>> getRecipes() async {
     final db = await database;
-    return await db.query('recipes');
+    return await db.query(AppStrings.dbTableNameRecipe);
   }
 }

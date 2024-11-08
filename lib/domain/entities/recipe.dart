@@ -1,3 +1,5 @@
+import 'package:recipe/core/shared/app_strings.dart';
+
 class Recipe {
   final String id;
   final String title;
@@ -13,10 +15,10 @@ class Recipe {
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
-      id: json['idMeal'] ?? '', // Ensure the key matches the JSON structure
-      title: json['strMeal'] ?? '',
-      imageUrl: json['strMealThumb'] ?? '',
-      instructions: json['strInstructions'] ?? '',
+      id: json[AppStrings.jsonKeyIdMeal] ?? '', // Ensure the key matches the JSON structure
+      title: json[AppStrings.jsonKeyStrMeal] ?? '',
+      imageUrl: json[AppStrings.jsonKeyStrMealThumb] ?? '',
+      instructions: json[AppStrings.jsonKeyStrInstructions] ?? '',
     );
   }
 }

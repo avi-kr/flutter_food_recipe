@@ -1,11 +1,13 @@
+import 'package:recipe/core/shared/app_strings.dart';
+
 class ErrorHandler {
   static String handleError(dynamic error) {
     if (error is NetworkError) {
-      return 'Network Error: Please check your connection.';
+      return AppStrings.networkError;
     } else if (error is DatabaseError) {
-      return 'Database Error: Something went wrong.';
+      return AppStrings.databaseError;
     } else {
-      return 'An unexpected error occurred.';
+      return AppStrings.unexpectedError;
     }
   }
 }
